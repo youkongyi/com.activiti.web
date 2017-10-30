@@ -155,7 +155,12 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-    
+    <!-- 操作JAVA BEAN -->
+    <dependency>
+	  <groupId>commons-beanutils</groupId>
+	  <artifactId>commons-beanutils</artifactId>
+	  <version>1.9.2</version>
+   </dependency>
   </dependencies>
   <build>
     <finalName>com.activiti.web</finalName>

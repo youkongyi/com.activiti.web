@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/js/commons.jspf" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
@@ -34,19 +36,17 @@
 		        <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">发布时间</span></div></td>
 		        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作</span></div></td>
 		      </tr>
-		      <s:if test="#depList!=null && #depList.size()>0">
-		      	<s:iterator value="#depList">
-		      		<tr>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="id"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="name"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:date name="deploymentTime" format="yyyy-MM-dd HH:mm:ss"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-				        	<a href="workflowAction_delDeployment.action?deploymentId=<s:property value="id"/>">删除</a>
-				        </div></td>
-				    </tr> 
-		      	</s:iterator>
-		      </s:if>
-		        
+		      
+		      <c:forEach items="${depList}" var="depList" varStatus="vs">  
+		      	<tr>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${depList.id}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${depList.name}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><fmt:formatDate value="${depList.deploymentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></div></td>
+			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
+			        	<a href="workflowAction_delDeployment.action?deploymentId=${user.id}">删除</a>
+			        </div></td>
+			    </tr> 
+		      </c:forEach>  
 		      
 		    </table></td>
 		  </tr>
@@ -84,23 +84,21 @@
 		        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">部署ID</span></div></td>
 		        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作</span></div></td>
 		      </tr>
-		      <s:if test="#pdList!=null && #pdList.size()>0">
-		      	<s:iterator value="#pdList">
-		      		<tr>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="id"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="name"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="key"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="version"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="resourceName"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="diagramResourceName"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="deploymentId"/></div></td>
+		      
+		      <c:forEach items="${pdList}" var="pdList" >  
+		      	<tr>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.id}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${pdList.name}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${pdList.key}</td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.version}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.resourceName}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.diagramResourceName}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.deploymentId}</div></td>
 				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-				        	<a target="_blank" href="workflowAction_viewImage.action?deploymentId=<s:property value="deploymentId"/>&imageName=<s:property value="diagramResourceName"/>">查看流程图</a> 
+				        	<a target="_blank" href='workflowAction_viewImage.action?deploymentId=${pdList.deploymentId}&imageName=<s:property value="diagramResourceName"/>'>查看流程图</a> 
 					 	</div></td>
 				    </tr> 
-		      	</s:iterator>
-		      </s:if>
-		        
+		      </c:forEach>
 		      
 		    </table></td>
 		  </tr>
