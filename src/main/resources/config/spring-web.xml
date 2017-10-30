@@ -24,11 +24,35 @@
      <mvc:default-servlet-handler/>
 
      <!-- 3.配置jsp 显示ViewResolver -->
+     <bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	    <property name="basename" value="views"/>
+	    <property name="order" value="0" />
+	 </bean>
+     
+     <bean class="org.springframework.web.servlet.view.XmlViewResolver">  
+	   <property name="location" value="/WEB-INF/views.xml"/>  
+	   <property name="order" value="1" />
+	 </bean>
+	  
      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
+        <property name="order" value="2" />
      </bean>
+
+	<!-- <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"> -->
+	<!-- <property name="order" value="1"/>设置优先级最高，最先开始解析 -->
+	<!-- </bean> -->
+	<!-- <bean id="task" class="org.springframework.web.servlet.view.InternalResourceView"> -->
+	<!-- <property name="url" value="/WEB-INF/views/workflow/task.jsp"/>访问对应的jsp文件 -->
+	<!-- </bean> -->
+
+	<!-- <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"> -->
+	<!-- <property name="prefix" value="/WEB-INF/views/" /> -->
+	<!-- <property name="suffix" value=".jsp" /> -->
+	<!-- <property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"/> -->
+	<!-- </bean> -->
 
      <!-- 4.扫描web相关的bean -->
      <context:component-scan base-package="com.activiti.demo.controller.impl" />

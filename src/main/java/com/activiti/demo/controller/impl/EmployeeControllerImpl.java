@@ -2,8 +2,6 @@ package com.activiti.demo.controller.impl;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.activiti.demo.controller.IEmployeeController;
 import com.activiti.demo.entity.Employee;
 import com.activiti.demo.service.IEmployeeService;
-import com.activiti.demo.utils.BeanUtils;
 import com.activiti.demo.utils.StringUtils;
 
 
@@ -48,11 +45,9 @@ public class EmployeeControllerImpl implements IEmployeeController{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "../../login";
+        return "login";
     }
 
-    
-    
     @RequestMapping("/loginAction_top.action")
   public String hello2(ModelMap paramMap) {
       return "top";
@@ -70,28 +65,28 @@ public class EmployeeControllerImpl implements IEmployeeController{
     
     @RequestMapping("/leaveBillAction_home.action")
   public String hello5(ModelMap paramMap) throws Exception {
-      return "leaveBill/list";
+      return "list";
   } 
     
-    @RequestMapping("/workflowAction_deployHome.action")
+    @RequestMapping("/workflowAction_deployHome")
     public String deployHome(HttpServletRequest request){
         //1:查询部署对象信息，对应表（act_re_deployment）
         List<Deployment> depList = employeeService.findDeploymentList();
         List<ProcessDefinition> pdList = employeeService.findProcessDefinitionList();
         request.setAttribute("depList", depList);
         request.setAttribute("pdList", pdList);
-      return "workflow/workflow";
+      return "workflow";
   }
     
     @RequestMapping("/workflowAction_listTask.action")
   public String hello7(ModelMap paramMap) throws Exception {
-      return "workflow/task";
+      return "task";
   }
     
-    @RequestMapping("/loginAction_logout.action")
+    @RequestMapping("/loginAction_logout")
   public String hello8(HttpServletRequest request) throws Exception {
         request.getSession().invalidate();
-      return "../../login";
+      return "login";
   }
     
     

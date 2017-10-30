@@ -133,7 +133,7 @@ a {text-decoration:none;color:black}
               <td width="99"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
                     <td height="23" class="STYLE4" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(images/tab_bg.gif)';this.style.borderStyle='solid';this.style.borderWidth='1';borderColor='#adb9c2'; "onmouseout="this.style.backgroundImage='url()';this.style.borderStyle='none'">
-                    	<a href="workflowAction_deployHome.action" target="main">部署管理</a>
+                    	<a href="workflowAction_deployHome" target="main">部署管理</a>
                     </td>
                   </tr>
               </table></td>
