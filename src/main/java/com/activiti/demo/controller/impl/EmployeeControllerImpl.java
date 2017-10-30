@@ -25,14 +25,23 @@ public class EmployeeControllerImpl implements IEmployeeController{
     @Autowired
     private IEmployeeService employeeService;
     
-    @RequestMapping(value = "/loginAction_login.do")
+    @RequestMapping(value = "/loginAction_login")
     public String findEmployeeByName(@RequestParam Map paramMap,HttpServletRequest request) {
+        Employee employee = null;
+        String name = null;
         try {
-            String name = String.valueOf(paramMap.get("name"));
+            name = String.valueOf(paramMap.get("name"));
             if(StringUtils.isNotNull(name)){
-                Employee employee = employeeService.findEmployeeByName(name);
+                employee = employeeService.findEmployeeByName(name);
                 if(StringUtils.isNotNull(employee)){
                     request.getSession().setAttribute("employee", employee);
+                    return "main";
+                }
+            }
+            employee = (Employee) request.getSession().getAttribute("employee");
+            if(StringUtils.isNotNull(employee)){
+                name = employee.getName();
+                if(StringUtils.isNotNull(name)){
                     return "main";
                 }
             }

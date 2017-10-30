@@ -14,7 +14,7 @@
 	</script>
 </head>
 <body style="text-align:center;">
-	<form action="loginAction_login.do" method="post" enctype="application/x-www-form-urlencoded">
+	<form action="loginAction_login" method="post" enctype="application/x-www-form-urlencoded">
 		<table width="100%"  height="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
 		    <td bgcolor="#1075b1">&nbsp;</td>
