@@ -1,7 +1,10 @@
 package com.activiti.demo.controller.impl;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ public class EmployeeControllerImpl implements IEmployeeController{
     @Autowired
     private IEmployeeService employeeService;
     
+    @Override
     @RequestMapping(value = "/loginAction_login")
     public String findEmployeeByName(@RequestParam Map paramMap,HttpServletRequest request) {
         Employee employee = null;
@@ -49,24 +53,24 @@ public class EmployeeControllerImpl implements IEmployeeController{
     }
 
     @RequestMapping("/loginAction_top.action")
-  public String hello2(ModelMap paramMap) {
-      return "top";
-  }
-    
+    public String hello2(ModelMap paramMap) {
+        return "top";
+    }
+
     @RequestMapping("/loginAction_welcome.action")
-  public String hello3(ModelMap paramMap){
-      return "welcome";
-  }
-    
+    public String hello3(ModelMap paramMap) {
+        return "welcome";
+    }
+
     @RequestMapping("/loginAction_left.action")
-  public String hello4(ModelMap paramMap) throws Exception {
-      return "left";
-  }
-    
+    public String hello4(ModelMap paramMap) throws Exception {
+        return "left";
+    }
+
     @RequestMapping("/leaveBillAction_home.action")
-  public String hello5(ModelMap paramMap) throws Exception {
-      return "list";
-  } 
+    public String hello5(ModelMap paramMap) throws Exception {
+        return "list";
+    }
     
     @RequestMapping("/workflowAction_deployHome")
     public String deployHome(HttpServletRequest request){
@@ -79,16 +83,37 @@ public class EmployeeControllerImpl implements IEmployeeController{
   }
     
     @RequestMapping("/workflowAction_listTask.action")
-  public String hello7(ModelMap paramMap) throws Exception {
-      return "task";
-  }
-    
+    public String hello7(ModelMap paramMap) throws Exception {
+        return "task";
+    }
+
     @RequestMapping("/loginAction_logout")
-  public String hello8(HttpServletRequest request) throws Exception {
+    public String hello8(HttpServletRequest request) throws Exception {
         request.getSession().invalidate();
-      return "login";
-  }
-    
-    
+        return "login";
+    }
+
+    /** 查看流程图  */
+    @Override
+    @RequestMapping("/workflowAction_viewImage")
+    public String viewImage(@RequestParam Map paramMap,HttpServletResponse response) {
+        String deploymentId = String.valueOf(paramMap.get("deploymentId"));
+        String imageName = String.valueOf(paramMap.get("imageName"));
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = employeeService.findImageInputStream(deploymentId, imageName);
+            out = response.getOutputStream();
+            // 4：将输入流中的数据读取出来，写到输出流中
+            for(int b = -1;(b = in.read()) != -1;){
+                out.write(b);
+            }
+            out.close();
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
 }

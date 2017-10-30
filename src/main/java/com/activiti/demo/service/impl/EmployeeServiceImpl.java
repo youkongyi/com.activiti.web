@@ -1,5 +1,6 @@
 package com.activiti.demo.service.impl;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.activiti.engine.RepositoryService;
@@ -41,5 +42,12 @@ public class EmployeeServiceImpl implements IEmployeeService{
                             .orderByProcessDefinitionVersion().asc()//
                             .list();
         return list;
+    }
+    
+    /** 使用部署对象ID和资源图片名称，获取图片的输入流 */
+    @Override
+    public InputStream findImageInputStream(String deploymentId,
+            String imageName) {
+        return repositoryService.getResourceAsStream(deploymentId, imageName);
     }
 }

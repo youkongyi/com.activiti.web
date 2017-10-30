@@ -1,5 +1,6 @@
 package com.activiti.demo.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.activiti.engine.repository.Deployment;
@@ -15,4 +16,6 @@ public interface IEmployeeService {
 	List<Deployment> findDeploymentList();
 	/** 查询流程定义的信息 */
 	List<ProcessDefinition> findProcessDefinitionList();
+	/** 使用部署对象ID和资源图片名称，获取图片的输入流 */
+	InputStream findImageInputStream(String deploymentId, String imageName);
 }

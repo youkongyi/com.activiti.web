@@ -89,13 +89,13 @@
 		      	<tr>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.id}</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${pdList.name}</div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${pdList.key}</td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${pdList.key}</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.version}</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.resourceName}</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.diagramResourceName}</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${pdList.deploymentId}</div></td>
 				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-				        	<a target="_blank" href='workflowAction_viewImage.action?deploymentId=${pdList.deploymentId}&imageName=<s:property value="diagramResourceName"/>'>查看流程图</a> 
+				        	<a target="_blank" href='workflowAction_viewImage?deploymentId=${pdList.deploymentId}&imageName=${pdList.diagramResourceName}'>查看流程图</a> 
 					 	</div></td>
 				    </tr> 
 		      </c:forEach>
