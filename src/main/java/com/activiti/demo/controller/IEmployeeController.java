@@ -11,4 +11,7 @@ public interface IEmployeeController {
     String deployHome(HttpServletRequest request);
     /** 查看流程图  */
     String viewImage(Map paramMap,HttpServletResponse response);
+    /** 删除部署信息  */
+    String delDeployment(Map paramMap);
+    
 }

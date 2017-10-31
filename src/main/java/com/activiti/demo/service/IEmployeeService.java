@@ -18,4 +18,6 @@ public interface IEmployeeService {
 	List<ProcessDefinition> findProcessDefinitionList();
 	/** 使用部署对象ID和资源图片名称，获取图片的输入流 */
 	InputStream findImageInputStream(String deploymentId, String imageName);
+	/** 删除部署信息 */
+	void deleteProcessDefinitionByDeploymentId(String deploymentId);
 }

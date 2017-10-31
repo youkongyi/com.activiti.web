@@ -116,4 +116,14 @@ public class EmployeeControllerImpl implements IEmployeeController{
         return null;
     }
     
+    @Override
+    @RequestMapping("/workflowAction_delDeployment")
+    public String delDeployment(@RequestParam Map paramMap){
+        //1：获取部署对象ID 
+        String deploymentId = String.valueOf(paramMap.get("deploymentId"));
+        //2：使用部署对象ID，删除流程定义
+        employeeService.deleteProcessDefinitionByDeploymentId(deploymentId);
+        return "redirect:/workflowAction_deployHome";
+    }
+    
 }

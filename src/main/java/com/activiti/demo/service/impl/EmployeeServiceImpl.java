@@ -50,4 +50,11 @@ public class EmployeeServiceImpl implements IEmployeeService{
             String imageName) {
         return repositoryService.getResourceAsStream(deploymentId, imageName);
     }
+    
+    /**使用部署对象ID，删除流程定义*/
+    @Override
+    public void deleteProcessDefinitionByDeploymentId(String deploymentId) {
+        repositoryService.deleteDeployment(deploymentId, true);
+    }
+    
 }

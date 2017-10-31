@@ -43,7 +43,7 @@
 			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${depList.name}</div></td>
 			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><fmt:formatDate value="${depList.deploymentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></div></td>
 			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-			        	<a href="workflowAction_delDeployment.action?deploymentId=${user.id}">删除</a>
+			        	<a href="workflowAction_delDeployment?deploymentId=${depList.id}">删除</a>
 			        </div></td>
 			    </tr> 
 		      </c:forEach>  
