@@ -1,4 +1,6 @@
 package com.activiti.demo.controller.impl;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.activiti.demo.controller.IEmployeeController;
 import com.activiti.demo.entity.Employee;
 import com.activiti.demo.service.IEmployeeService;
@@ -123,7 +127,31 @@ public class EmployeeControllerImpl implements IEmployeeController{
         String deploymentId = String.valueOf(paramMap.get("deploymentId"));
         //2：使用部署对象ID，删除流程定义
         employeeService.deleteProcessDefinitionByDeploymentId(deploymentId);
+        ////重定向到 /workflowAction_deployHome 的Controller方法(即deployHome)上
         return "redirect:/workflowAction_deployHome";
     }
     
+    @Override
+    @RequestMapping("/workflowAction_newdeploy")
+    public String newdeploy(HttpServletRequest request, String filename, @RequestParam("file") MultipartFile file){
+        if(!file.isEmpty()) {
+            //上传文件路径 E:\apache-tomcat-7.0.75\wtpwebapps\com.activiti.web
+            String path = request.getServletContext().getRealPath("/file/");
+            File filepath = new File(path,filename);
+            //判断路径是否存在，如果不存在就创建一个
+            if (!filepath.getParentFile().exists()) { 
+                filepath.getParentFile().mkdirs();
+            }
+            //将上传文件保存到一个目标文件当中
+            try {
+                file.transferTo(new File(path + File.separator + filename));
+                employeeService.saveNewDeploye(filepath, filename);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            return "error";
+        }
+        return "redirect:/workflowAction_deployHome";
+    }
 }

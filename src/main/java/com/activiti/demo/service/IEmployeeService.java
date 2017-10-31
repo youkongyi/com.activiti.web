@@ -1,5 +1,6 @@
 package com.activiti.demo.service;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface IEmployeeService {
 	InputStream findImageInputStream(String deploymentId, String imageName);
 	/** 删除部署信息 */
 	void deleteProcessDefinitionByDeploymentId(String deploymentId);
+	/** 部署流程定义 */
+	void saveNewDeploye(File file, String filename);
 }

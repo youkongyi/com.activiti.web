@@ -4,6 +4,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface IEmployeeController {
     /** 根据姓名查找员工 */
     String findEmployeeByName(Map paramMap, HttpServletRequest request);
@@ -13,5 +15,7 @@ public interface IEmployeeController {
     String viewImage(Map paramMap,HttpServletResponse response);
     /** 删除部署信息  */
     String delDeployment(Map paramMap);
+    /** 发布流程  */
+    String newdeploy(HttpServletRequest request, String filename, MultipartFile file);
     
 }
