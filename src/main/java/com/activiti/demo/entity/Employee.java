@@ -9,7 +9,7 @@ import javax.persistence.Transient;
 /**
  * 用户表
  */
-@Table(name="a_Employee")
+@Table(name="A_Employee")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "select SEQ_ID.nextval from dual")

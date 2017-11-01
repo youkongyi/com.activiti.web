@@ -8,6 +8,7 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 
 import com.activiti.demo.entity.Employee;
+import com.activiti.demo.entity.LeaveBill;
 
 public interface IEmployeeService {
 
@@ -23,4 +24,7 @@ public interface IEmployeeService {
 	void deleteProcessDefinitionByDeploymentId(String deploymentId);
 	/** 部署流程定义 */
 	void saveNewDeploye(File file, String filename);
+	/** 保存/更新，请假申请 */
+	boolean save(LeaveBill leaveBill);
+	
 }

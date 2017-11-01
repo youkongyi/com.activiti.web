@@ -9,11 +9,14 @@ import java.util.zip.ZipInputStream;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.activiti.demo.dao.IEmployeeDAO;
 import com.activiti.demo.entity.Employee;
+import com.activiti.demo.entity.LeaveBill;
+import com.activiti.demo.mapper.LeaveBillMapper;
 import com.activiti.demo.service.IEmployeeService;
 
 @Service("employeeService")
@@ -24,6 +27,9 @@ public class EmployeeServiceImpl implements IEmployeeService{
     
     @Autowired
     private RepositoryService repositoryService;
+    
+    @Autowired
+    private SqlSession sqlSession;
 
     public Employee findEmployeeByName(String name) {
         return employeeDAO.findEmployeeByName(name);
@@ -73,6 +79,17 @@ public class EmployeeServiceImpl implements IEmployeeService{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /** 保存/更新，请假申请 */
+    @Override
+    public boolean save(LeaveBill leaveBill) {
+        LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
+        int num = leaveBillMapper.insertSelective(leaveBill);
+        if(num < 1){
+            return false;
+        }
+        return true;
     }
     
     

@@ -28,7 +28,7 @@
 		  </tr>
 		  <tr>
 		        <td height="20" bgcolor="#FFFFFF" class="STYLE10" colspan="8"><div align="left">
-					<a href="${pageContext.request.contextPath }/leaveBillAction_input.action">添加请假申请</a>
+					<a href="${pageContext.request.contextPath }/leaveBillAction_input">添加请假申请</a>
 				</div></td>
 		  </tr> 
 		  <tr>
@@ -47,7 +47,7 @@
 		      	<s:iterator value="#list">
 		      		<tr>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="id"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="user.name"/></div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="name"/></div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="days"/></div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="content"/></div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="remark"/></div></td>

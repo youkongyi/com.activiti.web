@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.activiti.demo.controller.IEmployeeController;
 import com.activiti.demo.entity.Employee;
+import com.activiti.demo.entity.LeaveBill;
 import com.activiti.demo.service.IEmployeeService;
+import com.activiti.demo.utils.BeanUtils;
 import com.activiti.demo.utils.StringUtils;
 
 
@@ -120,6 +124,7 @@ public class EmployeeControllerImpl implements IEmployeeController{
         return null;
     }
     
+    /** 删除部署信息  */
     @Override
     @RequestMapping("/workflowAction_delDeployment")
     public String delDeployment(@RequestParam Map paramMap){
@@ -131,6 +136,7 @@ public class EmployeeControllerImpl implements IEmployeeController{
         return "redirect:/workflowAction_deployHome";
     }
     
+    /** 发布流程  */
     @Override
     @RequestMapping("/workflowAction_newdeploy")
     public String newdeploy(HttpServletRequest request, String filename, @RequestParam("file") MultipartFile file){
@@ -154,4 +160,31 @@ public class EmployeeControllerImpl implements IEmployeeController{
         }
         return "redirect:/workflowAction_deployHome";
     }
+    
+    /** 添加请假申请 */
+    @Override
+    @RequestMapping("/leaveBillAction_input")
+    public String input(Map paramMap){
+        
+        return "input";
+    }
+    
+    /** 保存/更新，请假申请 */
+    @SuppressWarnings("unchecked")
+    @Override
+    @RequestMapping("/leaveBillAction_save")
+    public String save(@RequestParam Map paramMap, HttpServletRequest request){
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
+        if(StringUtils.isNotNull(employee)){
+            LeaveBill leaveBill = (LeaveBill) BeanUtils.reflectionCopyJavaBean(paramMap, LeaveBill.class);
+            leaveBill.setUserId(employee.getId());
+            leaveBill.setState("0");
+            boolean flag = employeeService.save(leaveBill);
+            if(flag){
+                return "list";
+            }
+        }
+        return "main";
+    }
+    
 }
