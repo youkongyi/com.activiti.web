@@ -21,7 +21,7 @@ public class BeanUtils {
      * 反射Map到对应实体类属性
      * @return
      */
-    public static Object reflectionCopyJavaBean(Map<?, ?> map,Object obj){
+    public static Object reflectionCopyJavaBean(Map map,Object obj){
         if (obj == null) {
             return null;
         }
@@ -66,7 +66,7 @@ public class BeanUtils {
         return obj;
     }
 
-    public static Object reflectionCopyJavaBean(Map<?, ?> map,Class<?> clazz){
+    public static Object reflectionCopyJavaBean(Map map,Class clazz){
         //传入对象
         Object obj = null;
         //获取本类所有属性

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
 <%@ include file="/js/commons.jspf" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -32,12 +33,26 @@
 		  </tr>
 		  <tr>
 		    <td>
-		    	<div align="left" class="STYLE21">
-			 		请假天数:<input type="text" name="days" style="width: 200px;"/><br/>
-			 		请假原因:<textarea type="text" name="content" style="width:360;height:60;overflow-x:visible;overflow-y:visible;"></textarea><br/>
-			 		备&emsp;&emsp;注:<textarea type="text" name="remark" style="width:360;height:60;overflow-x:visible;overflow-y:visible;"></textarea><br/>
-			 		<input type="submit" value="提交" class="button_ok"/>
-				</div>
+			    <c:choose>
+				   <c:when test="${empty leaveBill}">
+					   <div align="left" class="STYLE21">
+					 		请假天数:<input type="text" name="days" style="width: 200px;"/><br/>
+					 		请假原因:<textarea type="text" name="content" style="width:360;height:60;overflow-x:visible;overflow-y:visible;"></textarea><br/>
+					 		备&emsp;&emsp;注:<textarea type="text" name="remark" style="width:360;height:60;overflow-x:visible;overflow-y:visible;"></textarea><br/>
+					 		<input type="submit" value="提交" class="button_ok"/>
+					   </div>
+				   </c:when>
+				   <c:otherwise>
+					   <div align="left" class="STYLE21">
+						    <input type="hidden" name="id" value="${leaveBill.id }"/>
+						    <input type="hidden" name="userId" value="${employee.id }"/>
+					 		请假天数:<input type="text" name="days" value="${leaveBill.days }" style="width: 200px;"/><br/>
+					 		请假原因:<textarea type="text" name="content" style="width:360;height:60;overflow-x:visible;overflow-y:visible;">${leaveBill.content }</textarea><br/>
+					 		备&emsp;&emsp;注:<textarea type="text" name="remark" style="width:360;height:60;overflow-x:visible;overflow-y:visible;">${leaveBill.remark }</textarea><br/>
+					 		<input type="submit" value="提交" class="button_ok" style="height: 20px;"/>
+					   </div>
+				   </c:otherwise>
+				</c:choose>
 		    </td>
 		  </tr>
 	</table>

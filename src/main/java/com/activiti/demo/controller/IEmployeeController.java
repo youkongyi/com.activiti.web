@@ -18,7 +18,7 @@ public interface IEmployeeController {
     /** 发布流程  */
     String newdeploy(HttpServletRequest request, String filename, MultipartFile file);
     /** 添加请假申请 */
-    String input(Map paramMap);
+    String input(Map paramMap, HttpServletRequest request);
     /** 保存/更新，请假申请 */
     String save(Map paramMap, HttpServletRequest request);
     /** 请假管理首页显示 */

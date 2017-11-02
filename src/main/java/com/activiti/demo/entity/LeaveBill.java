@@ -24,7 +24,7 @@ public class LeaveBill {
 	@Temporal (TemporalType.TIMESTAMP)
 	private Date leaveDate = new Date();// 请假时间
     private String remark;// 备注
-	private String state;// 请假单状态 0初始录入,1.开始审批,2为审批完成
+	private String state="0";// 请假单状态 0初始录入,1.开始审批,2为审批完成
 	private String userId;// 请假人
 	
     public String getUserId() {

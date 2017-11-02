@@ -164,25 +164,23 @@ public class EmployeeControllerImpl implements IEmployeeController{
     /** 添加请假申请 */
     @Override
     @RequestMapping("/leaveBillAction_input")
-    public String input(Map paramMap){
-        
+    public String input(@RequestParam Map paramMap, HttpServletRequest request){
+        String id = String.valueOf(paramMap.get("id"));
+        if(StringUtils.isNotNull(id)){
+            LeaveBill leaveBill = employeeService.findLeaveBill(id);
+            request.setAttribute("leaveBill", leaveBill);
+        }
         return "input";
     }
     
     /** 保存/更新，请假申请 */
-    @SuppressWarnings("unchecked")
     @Override
     @RequestMapping("/leaveBillAction_save")
     public String save(@RequestParam Map paramMap, HttpServletRequest request){
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        if(StringUtils.isNotNull(employee)){
-            LeaveBill leaveBill = (LeaveBill) BeanUtils.reflectionCopyJavaBean(paramMap, LeaveBill.class);
-            leaveBill.setUserId(employee.getId());
-            leaveBill.setState("0");
-            boolean flag = employeeService.save(leaveBill);
-            if(flag){
-                return "list";
-            }
+        LeaveBill leaveBill = (LeaveBill) BeanUtils.reflectionCopyJavaBean(paramMap, LeaveBill.class);
+        boolean flag = employeeService.save(leaveBill);
+        if(flag){
+            return "redirect:/leaveBillAction_home";
         }
         return "login";
     }

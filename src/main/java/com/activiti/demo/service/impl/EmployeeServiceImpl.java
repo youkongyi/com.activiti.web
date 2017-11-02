@@ -18,6 +18,7 @@ import com.activiti.demo.entity.Employee;
 import com.activiti.demo.entity.LeaveBill;
 import com.activiti.demo.mapper.LeaveBillMapper;
 import com.activiti.demo.service.IEmployeeService;
+import com.activiti.demo.utils.StringUtils;
 
 @Service("employeeService")
 public class EmployeeServiceImpl implements IEmployeeService{
@@ -84,20 +85,31 @@ public class EmployeeServiceImpl implements IEmployeeService{
     /** 保存/更新，请假申请 */
     @Override
     public boolean save(LeaveBill leaveBill) {
+        int num = 0;
         LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
-        int num = leaveBillMapper.insertSelective(leaveBill);
+        if(StringUtils.isNotNull(leaveBill.getId())){
+            num = leaveBillMapper.updateByPrimaryKey(leaveBill);
+        } else {
+            num = leaveBillMapper.insertSelective(leaveBill);
+        }
         if(num < 1){
             return false;
         }
         return true;
     }
 
-    /** 查询自己的请假单的信息 */
+    /** 查询请假单信息 */
     @Override
     public List<LeaveBill> findLeaveBillList() {
         LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
         return leaveBillMapper.selectAll();
     }
     
+    /** 查询自己的请假单的信息 */
+    @Override
+    public LeaveBill findLeaveBill(String id){
+        LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
+        return leaveBillMapper.selectByPrimaryKey(id);
+    }
     
 }
