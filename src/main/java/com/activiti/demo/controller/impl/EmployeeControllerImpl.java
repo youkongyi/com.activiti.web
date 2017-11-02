@@ -184,7 +184,15 @@ public class EmployeeControllerImpl implements IEmployeeController{
                 return "list";
             }
         }
-        return "main";
+        return "login";
     }
     
+    /** 请假管理首页显示 */
+    @Override
+    @RequestMapping("/leaveBillAction_home")
+    public String home(HttpServletRequest request){
+        List<LeaveBill> list = employeeService.findLeaveBillList();
+        request.setAttribute("list", list);
+        return "list";
+    }
 }

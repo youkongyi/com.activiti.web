@@ -21,5 +21,6 @@ public interface IEmployeeController {
     String input(Map paramMap);
     /** 保存/更新，请假申请 */
     String save(Map paramMap, HttpServletRequest request);
-    
+    /** 请假管理首页显示 */
+    String home(HttpServletRequest request);
 }

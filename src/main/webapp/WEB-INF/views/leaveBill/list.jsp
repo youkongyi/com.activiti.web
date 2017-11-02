@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/js/commons.jspf" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,46 +45,44 @@
 		        <td width="5%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">请假状态</span></div></td>
 		        <td width="25%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作</span></div></td>
 		      </tr>
-		      <s:if test="#list!=null && #list.size()>0">
-		      	<s:iterator value="#list">
-		      		<tr>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><s:property value="id"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="name"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="days"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="content"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="remark"/></div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:date name="leaveDate" format="yyyy-MM-dd HH:mm:ss"/></div></td>
+		      
+		      <c:forEach items="${list}" var="list" varStatus="vs">  
+		      	<tr>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${list.id}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${list.userId}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${list.days}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${list.content}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${list.remark}</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><fmt:formatDate value="${list.leaveDate}" pattern="yyyy-MM-dd HH:mm:ss"/></div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19">
 				        	<div align="center">
-				        		<s:if test="state==0">
-				        			初始录入
-				        		</s:if>
-				 				<s:elseif test="state==1">
-				 					审核中
-				 				</s:elseif>
-				 				<s:else>
-				 					审核完成
-				 				</s:else>
+<!-- 				        		<s:if test="state==0"> -->
+<!-- 				        			初始录入 -->
+<!-- 				        		</s:if> -->
+<!-- 				 				<s:elseif test="state==1"> -->
+<!-- 				 					审核中 -->
+<!-- 				 				</s:elseif> -->
+<!-- 				 				<s:else> -->
+<!-- 				 					审核完成 -->
+<!-- 				 				</s:else> -->
 			            	</div>
 			            </td>
 				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-				        	<s:if test="state==0">
-			        			<a href="${pageContext.request.contextPath }/leaveBillAction_input.action?id=<s:property value="id"/>" >修改</a>
-								<a href="leaveBillAction_delete.action?id=<s:property value="id"/>" >删除</a>
-								<a href="${pageContext.request.contextPath }/workflowAction_startProcess.action?id=<s:property value="id"/>" >申请请假</a>
-			        		</s:if>
-			 				<s:elseif test="state==1">
-			 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=<s:property value="id"/>" >查看审核记录</a>
-			 				</s:elseif>
-			 				<s:else>
-			 					<a href="leaveBillAction_delete.action?id=<s:property value="id"/>" >删除</a>
-			 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=<s:property value="id"/>" >查看审核记录</a>
-			 				</s:else>
-				        	
+				        <c:if test="${list.state==0}">
+				        	<a href="${pageContext.request.contextPath }/leaveBillAction_input?id=${list.id}" >修改</a>
+							<a href="leaveBillAction_delete.action?id=${list.id}" >删除</a>
+							<a href="${pageContext.request.contextPath }/workflowAction_startProcess?id=${list.id}" >申请请假</a>
+				        </c:if>
+				        <c:if test="${list.state==1}">
+				        	<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment?id=${list.id}" >查看审核记录</a>
+				        </c:if>
+				        <c:if test="${list.state==2}">
+				        	<a href="leaveBillAction_delete.action?id=${list.id}" >删除</a>
+		 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment?id=${list.id}" >查看审核记录</a>
+				        </c:if>
 						</div></td>
-				    </tr> 
-		      	</s:iterator>
-		      </s:if>
+				    </tr>  
+		      </c:forEach> 
 		       
 		    </table></td>
 		  </tr>

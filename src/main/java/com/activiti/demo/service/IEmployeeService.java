@@ -26,5 +26,7 @@ public interface IEmployeeService {
 	void saveNewDeploye(File file, String filename);
 	/** 保存/更新，请假申请 */
 	boolean save(LeaveBill leaveBill);
+	/** 查询自己的请假单的信息 */
+	List<LeaveBill> findLeaveBillList();
 	
 }

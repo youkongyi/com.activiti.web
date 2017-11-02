@@ -91,6 +91,13 @@ public class EmployeeServiceImpl implements IEmployeeService{
         }
         return true;
     }
+
+    /** 查询自己的请假单的信息 */
+    @Override
+    public List<LeaveBill> findLeaveBillList() {
+        LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
+        return leaveBillMapper.selectAll();
+    }
     
     
 }

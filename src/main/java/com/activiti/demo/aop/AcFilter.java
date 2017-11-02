@@ -1,7 +1,6 @@
 package com.activiti.demo.aop;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,6 +11,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.activiti.demo.entity.Employee;
+import com.activiti.demo.utils.StringUtils;
 
 @WebFilter("/AcFilter")
 public class AcFilter implements Filter {
@@ -33,8 +35,41 @@ public class AcFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         response.setCharacterEncoding("utf-8");
         request.setCharacterEncoding("utf-8");
-        chain.doFilter(request, response);
-        return;
+        
+//         // 登录登陆页面
+        String logonStrings = filterConfig.getInitParameter("logonStrings");  
+        // 过滤资源后缀参数
+        String includeStrings = filterConfig.getInitParameter("includeStrings");  
+        // 没有登陆转向页面
+        String redirectPath = request.getContextPath() + filterConfig.getInitParameter("redirectPath");
+        // 过滤器是否有效
+        String disabletestfilter = filterConfig.getInitParameter("disabletestfilter");
+        String[] logonList = logonStrings.split(";");
+        String[] includeList = includeStrings.split(";");
+        // 过滤无效
+        if("Y".equals(disabletestfilter.toUpperCase())){
+            chain.doFilter(request, response);
+            return;
+        }
+        // 只对指定过滤参数后缀进行过滤
+        if (!isContains(request.getRequestURI(), includeList)) {
+          //传递下一个Filte
+            chain.doFilter(request, response);
+            return;
+        }
+        // 对登录页面不进行过滤
+        if (isContains(request.getRequestURI(), logonList)) {
+            chain.doFilter(request, response);
+            return;
+        }
+        //判断用户是否登录
+        Employee user = (Employee) request.getSession().getAttribute("employee");
+        if (StringUtils.isNull(user)) {
+            response.sendRedirect(redirectPath);
+        } else {
+            chain.doFilter(request, response);
+            return;
+        }
     }  
   
     @Override  
