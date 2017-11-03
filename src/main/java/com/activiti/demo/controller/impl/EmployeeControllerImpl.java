@@ -1,29 +1,25 @@
 package com.activiti.demo.controller.impl;
 import java.io.File;
-import java.io.IOException;
+import java.util.Map;
+import java.util.List;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.activiti.demo.controller.IEmployeeController;
+import com.activiti.demo.utils.BeanUtils;
 import com.activiti.demo.entity.Employee;
 import com.activiti.demo.entity.LeaveBill;
-import com.activiti.demo.service.IEmployeeService;
-import com.activiti.demo.utils.BeanUtils;
 import com.activiti.demo.utils.StringUtils;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.activiti.engine.repository.Deployment;
+import com.activiti.demo.service.IEmployeeService;
+import org.springframework.web.multipart.MultipartFile;
+import org.activiti.engine.repository.ProcessDefinition;
+import com.activiti.demo.controller.IEmployeeController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -73,11 +69,6 @@ public class EmployeeControllerImpl implements IEmployeeController{
     @RequestMapping("/loginAction_left.action")
     public String hello4(ModelMap paramMap) throws Exception {
         return "left";
-    }
-
-    @RequestMapping("/leaveBillAction_home.action")
-    public String hello5(ModelMap paramMap) throws Exception {
-        return "list";
     }
     
     @RequestMapping("/workflowAction_deployHome")
@@ -192,5 +183,17 @@ public class EmployeeControllerImpl implements IEmployeeController{
         List<LeaveBill> list = employeeService.findLeaveBillList();
         request.setAttribute("list", list);
         return "list";
+    }
+    
+    /** 删除请假申请 */
+    @Override
+    @RequestMapping("/leaveBillAction_delete")
+    public String delLeaveBill(@RequestParam Map paramMap){
+        String id = String.valueOf(paramMap.get("id"));
+        boolean flag = employeeService.delLeaveBill(id);
+        if(flag){
+            return "redirect:/leaveBillAction_home";
+        }
+        return "login";
     }
 }

@@ -56,21 +56,21 @@
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><fmt:formatDate value="${list.leaveDate}" pattern="yyyy-MM-dd HH:mm:ss"/></div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19">
 				        	<div align="center">
-<!-- 				        		<s:if test="state==0"> -->
-<!-- 				        			初始录入 -->
-<!-- 				        		</s:if> -->
-<!-- 				 				<s:elseif test="state==1"> -->
-<!-- 				 					审核中 -->
-<!-- 				 				</s:elseif> -->
-<!-- 				 				<s:else> -->
-<!-- 				 					审核完成 -->
-<!-- 				 				</s:else> -->
+				        		<c:if test="${list.state==0}">
+				        			初始录入
+				        		</c:if>
+				 				<c:if test="${list.state==1}">
+				 					审核中
+				 				</c:if>
+				 				<c:if test="${list.state==2}">
+				 					审核完成
+				 				</c:if>
 			            	</div>
 			            </td>
 				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
 				        <c:if test="${list.state==0}">
 				        	<a href="${pageContext.request.contextPath }/leaveBillAction_input?id=${list.id}" >修改</a>
-							<a href="leaveBillAction_delete.action?id=${list.id}" >删除</a>
+							<a href="leaveBillAction_delete?id=${list.id}" >删除</a>
 							<a href="${pageContext.request.contextPath }/workflowAction_startProcess?id=${list.id}" >申请请假</a>
 				        </c:if>
 				        <c:if test="${list.state==1}">

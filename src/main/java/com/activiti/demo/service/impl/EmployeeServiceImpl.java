@@ -111,5 +111,15 @@ public class EmployeeServiceImpl implements IEmployeeService{
         LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
         return leaveBillMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public boolean delLeaveBill(String id) {
+        LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
+        int num = leaveBillMapper.deleteByPrimaryKey(id);
+        if(num < 1){
+            return false;
+        }
+        return true;
+    }
     
 }

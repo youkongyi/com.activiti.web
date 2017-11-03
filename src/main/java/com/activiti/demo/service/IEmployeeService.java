@@ -30,5 +30,7 @@ public interface IEmployeeService {
 	List<LeaveBill> findLeaveBillList();
 	/** 查询自己的请假单的信息 */
 	LeaveBill findLeaveBill(String id);
+	/** 删除请假单 */
+	boolean delLeaveBill(String id);
 	
 }

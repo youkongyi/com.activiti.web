@@ -23,4 +23,6 @@ public interface IEmployeeController {
     String save(Map paramMap, HttpServletRequest request);
     /** 请假管理首页显示 */
     String home(HttpServletRequest request);
+    /** 删除请假申请 */
+    String delLeaveBill(Map paramMap);
 }
