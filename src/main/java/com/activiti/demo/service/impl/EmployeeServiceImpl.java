@@ -88,7 +88,7 @@ public class EmployeeServiceImpl implements IEmployeeService{
         int num = 0;
         LeaveBillMapper leaveBillMapper = sqlSession.getMapper(LeaveBillMapper.class);
         if(StringUtils.isNotNull(leaveBill.getId())){
-            num = leaveBillMapper.updateByPrimaryKey(leaveBill);
+            num = employeeDAO.updateLeaveBill(leaveBill);
         } else {
             num = leaveBillMapper.insertSelective(leaveBill);
         }

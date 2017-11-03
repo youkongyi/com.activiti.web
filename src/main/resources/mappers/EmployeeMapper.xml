@@ -8,9 +8,27 @@
 		SELECT * FROM A_EMPLOYEE T
 		WHERE T.NAME=#{name}
 	</select>
-
-
-
+	
+	<update id="updateLeaveBill" parameterType="leaveBill">
+		UPDATE
+			A_LEAVEBILL T
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="days != null and days != '' ">
+				T.DAYS = #{days },
+			</if>
+			<if test="content != null and content != '' ">
+				T.CONTENT = #{content },
+			</if>
+			<if test="remark != null and remark != '' ">
+				T.REMARK = #{remark },
+			</if>
+			<if test="state != null and state != '' ">
+				T.STATE = #{state },
+			</if>
+		</trim>
+		WHERE 
+			T.ID = #{id }
+	</update>
 
 
 
