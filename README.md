@@ -10,4 +10,4 @@ https://www.lvtao.net/dev/1179.html
 http://blog.csdn.net/qian_ch/article/details/69258465
 http://blog.csdn.net/cheung1021/article/details/7084673
 ## 5.从request获取各种路径总结
-http://www.cnblogs.com/hello-yao-ge/p/6606564.html
+https://blog.csdn.net/piaoxuan1987/article/details/8541839
